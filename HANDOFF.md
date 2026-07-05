@@ -1,40 +1,45 @@
-# HANDOFF — 2026-07-04
+# HANDOFF — 2026-07-05
 
 ## State
 
-Planning session complete. No code written yet. All decisions made and documented.
+Two tasks complete. Code on `main`. No open PRs.
 
 ## What Was Done
 
-- Designed the PoC: QuarkusFlow 0.12.0 + quarkus-langchain4j-ollama 1.11.2 driving
-  ComfyUI v0.27.0 via REST + WebSocket, with Ollama as the LLM backend.
-- Design spec committed: `docs/superpowers/specs/2026-07-04-comfui-poc-design.md`
-- Implementation plan committed: `docs/superpowers/plans/2026-07-04-comfui-poc.md`
-- GitHub repo created: `pibizza/comfui-poc` (public, Apache 2.0, `main` branch)
-- 7 GitHub issues created: epic #1 (Create ComfyUI PoC 1.0) + children #2–#7
-- CLAUDE.md written with build commands, test conventions, git conventions, Work Tracking
-- Blog entry written: `blog/2026-07-04-PaoloB01-comfui-poc-day-zero.md`
+- **Task 1 (Issue #2) — Scaffold:** Quarkus 3.37.1 skeleton, QuarkusFlow BOM 0.12.0,
+  `quarkus-langchain4j-ollama:1.11.2`, WireMock 2.35.2. `application.properties` and
+  `comfyui-workflow.json` in place. Compiled clean. Committed directly to `main`
+  (pre-convention; see below).
+- **Task 2 (Issue #3) — Domain objects:** `TerminationReason`, `WorkflowInput`,
+  `LoopState`, `RatingResult`, `WorkflowResult`. Merged via PR #8. Issue #3
+  auto-closed by `Closes #3` in PR body.
+- **PR workflow established:** All implementation work now goes through a
+  `feat/<description>` branch → PR → merge → delete branch. CLAUDE.md updated.
+- **Blog:** `blog/2026-07-05-PaoloB01-scaffold-and-domain.md` written (not yet committed).
 
 ## Next Step
 
-Start implementation at **Issue #2 — Scaffold Quarkus project with all dependencies**.
+**Task 3 — ComfyUI Integration (Issue #4).**
 
-Follow the plan at `docs/superpowers/plans/2026-07-04-comfui-poc.md` Task 1.
-Use `superpowers:subagent-driven-development` or `superpowers:executing-plans`.
+Branch: `feat/comfyui-integration`. Files to create:
+- `src/main/java/org/kie/comfui/comfyui/ComfyUIRestClient.java`
+- `src/main/java/org/kie/comfui/comfyui/ComfyUIWebSocketClient.java`
+- `src/main/java/org/kie/comfui/comfyui/ComfyUIService.java`
+- `src/test/java/org/kie/comfui/comfyui/ComfyUIServiceTest.java`
 
-## Known Unknowns (flag at Task 5)
+Follow Task 3 in `docs/superpowers/plans/2026-07-04-comfui-poc.md`.
 
-1. Whether `function()` tasks in QuarkusFlow FuncDSL need `.name()` for
-   `switchWhenOrElse` loop-back by name.
-2. Whether quarkus-langchain4j 1.11.2 accepts `byte[]` in `@UserMessage` to
-   Ollama vision, or needs `dev.langchain4j.data.image.Image` / base64.
+## Known Unknowns
+
+Still ahead in Task 5:
+1. Whether `function()` tasks in FuncDSL need `.name()` for `switchWhenOrElse` loop-back.
+2. Whether `byte[]` in `@UserMessage` works for Ollama vision, or needs `Image` wrapper.
 
 ## References
 
 | Artifact | Path |
 |---|---|
-| Design spec | `docs/superpowers/specs/2026-07-04-comfui-poc-design.md` |
 | Implementation plan | `docs/superpowers/plans/2026-07-04-comfui-poc.md` |
+| Design spec | `docs/superpowers/specs/2026-07-04-comfui-poc-design.md` |
 | GitHub issues | https://github.com/pibizza/comfui-poc/issues |
-| Blog entry | `blog/2026-07-04-PaoloB01-comfui-poc-day-zero.md` |
-| CLAUDE.md | `CLAUDE.md` |
+| Blog entry (today) | `blog/2026-07-05-PaoloB01-scaffold-and-domain.md` |

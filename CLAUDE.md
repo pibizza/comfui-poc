@@ -33,6 +33,9 @@ WebSocket API.
 - Branch: `main`
 - Commit messages: plain text, no `Co-Authored-By` trailers
 - Every commit referencing an issue uses `Refs #N` or `Closes #N`
+- All implementation work goes through a PR — never commit directly to `main`
+- Branch naming: `feat/<short-description>` (e.g. `feat/domain-objects`)
+- After merging, push is done and the corresponding GitHub issue is closed
 
 ## Work Tracking
 

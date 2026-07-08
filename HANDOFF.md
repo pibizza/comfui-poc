@@ -1,45 +1,49 @@
-# HANDOFF — 2026-07-05
+# HANDOFF — 2026-07-08
 
 ## State
 
-Two tasks complete. Code on `main`. No open PRs.
+Four tasks complete (of six). Code on `main`. No open PRs.
 
 ## What Was Done
 
-- **Task 1 (Issue #2) — Scaffold:** Quarkus 3.37.1 skeleton, QuarkusFlow BOM 0.12.0,
-  `quarkus-langchain4j-ollama:1.11.2`, WireMock 2.35.2. `application.properties` and
-  `comfyui-workflow.json` in place. Compiled clean. Committed directly to `main`
-  (pre-convention; see below).
-- **Task 2 (Issue #3) — Domain objects:** `TerminationReason`, `WorkflowInput`,
-  `LoopState`, `RatingResult`, `WorkflowResult`. Merged via PR #8. Issue #3
-  auto-closed by `Closes #3` in PR body.
-- **PR workflow established:** All implementation work now goes through a
-  `feat/<description>` branch → PR → merge → delete branch. CLAUDE.md updated.
-- **Blog:** `blog/2026-07-05-PaoloB01-scaffold-and-domain.md` written (not yet committed).
+- **Task 3 (Issue #4) — ComfyUI Integration:** `ComfyUIRestClient`,
+  `ComfyUIWebSocketClient`, `ComfyUIService`. WS connects before REST submit
+  to avoid missing the completion signal. `InterruptedException` handled
+  correctly. Test uses WireMock (HTTP, port 18188) + `@ServerEndpoint` (WS,
+  port 18189). Merged via PR #9.
+- **Task 4 (Issue #5) — Agent interfaces:** `PromptGeneratorAgent`,
+  `ImageRaterAgent` (`@ModelName("vision")`), `PromptRefinerAgent`. Pure
+  `@RegisterAiService` declarations. Merged via PR #10.
+- **`docs/DESIGN.md` created** — living design doc, committed with Task 3.
+- **`pom.xml`:** `quarkus-websockets-client` → `quarkus-websockets` (superset);
+  `assertj-core` added.
+
+*Previous tasks unchanged — `git show HEAD~1:HANDOFF.md`*
 
 ## Next Step
 
-**Task 3 — ComfyUI Integration (Issue #4).**
+**Task 5 — PromptOptimizationWorkflow (Issue #6).**
 
-Branch: `feat/comfyui-integration`. Files to create:
-- `src/main/java/org/kie/comfui/comfyui/ComfyUIRestClient.java`
-- `src/main/java/org/kie/comfui/comfyui/ComfyUIWebSocketClient.java`
-- `src/main/java/org/kie/comfui/comfyui/ComfyUIService.java`
-- `src/test/java/org/kie/comfui/comfyui/ComfyUIServiceTest.java`
+Branch: `feat/workflow`. Files to create:
+- `src/main/java/org/kie/comfui/workflow/PromptOptimizationWorkflow.java`
+- `src/test/java/org/kie/comfui/workflow/PromptOptimizationWorkflowIT.java`
 
-Follow Task 3 in `docs/superpowers/plans/2026-07-04-comfui-poc.md`.
+Follow Task 5 in `docs/superpowers/plans/2026-07-04-comfui-poc.md`.
 
 ## Known Unknowns
 
-Still ahead in Task 5:
+Both still open (Task 5):
 1. Whether `function()` tasks in FuncDSL need `.name()` for `switchWhenOrElse` loop-back.
 2. Whether `byte[]` in `@UserMessage` works for Ollama vision, or needs `Image` wrapper.
+
+Check the QuarkusFlow 0.12.0 API (jar in `~/.m2`) before writing the workflow.
 
 ## References
 
 | Artifact | Path |
 |---|---|
 | Implementation plan | `docs/superpowers/plans/2026-07-04-comfui-poc.md` |
+| Design doc | `docs/DESIGN.md` |
 | Design spec | `docs/superpowers/specs/2026-07-04-comfui-poc-design.md` |
 | GitHub issues | https://github.com/pibizza/comfui-poc/issues |
-| Blog entry (today) | `blog/2026-07-05-PaoloB01-scaffold-and-domain.md` |
+| Blog (latest) | `blog/2026-07-08-PaoloB01-comfyui-integration.md` |
